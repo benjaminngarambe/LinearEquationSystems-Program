@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace LinearEquationSystems_Program
 {
     internal class Program

@@ -2,37 +2,50 @@
 
 namespace LinearEquationSystems_Program
 {
-    public class Program
+    internal class Program
     {
+        internal static MatrixClass Matrix { get; private set; }
+
         private static void Main(string[] args)
         {
-            Console.WriteLine("Type linear equations in augmented matrix notation: a1 a2... aN  d,\n where a1..N are coefficients and D is constant");
-            //setting up the array to store the elements of the matrix
-            Console.WriteLine("Enter the number of rows your matrix");
-            int Row = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Enter the number of colums your matrix");
-            int Col = Convert.ToInt32(Console.ReadLine());
-            int i, j;
-            int[,] arr1 = new int[10, 10];
-            Console.Write("Input elements in the matrix :\n");
-            for (i = 0; i < Row; i++)
+            if (args is null)
             {
-                for (j = 0; j < Col; j++)
-                {
-                    Console.Write("element - [{0}],[{1}] : ", i, j);
-                    arr1[i, j] = Convert.ToInt32(Console.ReadLine());
-                }
+                throw new ArgumentNullException(nameof(args));
             }
-            Console.Write("The matrix is :\n");
-            for (i = 0; i < Row; i++)
-            {
-                for (j = 0; j < Col; j++)
-                    Console.Write("{0}  ", arr1[i, j]);
-                Console.Write("\n");
-            }
+
             MainProgram();
             void MainProgram()
             {
+                Console.WriteLine("Type linear equations in augmented matrix notation: a1 a2... aN  d,\n where a1..N are coefficients and D is constant\n Type 'END' or 'end' or 'done'when you finish typing the equation");
+                int index = 1;
+
+                Matrix = new MatrixClass();
+                try
+                {
+                    while (true)
+                    {
+                        Console.Write($"Eq #{index++}: ");
+
+                        String input = Console.ReadLine();
+
+                        if (input.Trim() == "END" || input.Trim() == "end" || input.Trim() == "done")
+                            break;
+
+                        Matrix.JoinEquation(new LinearEquationClass(input));
+                    }
+
+                    Console.WriteLine("You have entered following equations:");
+
+                    for (int i = 0; i < Matrix.Length; i++)
+                        Console.Write($"Eq #{i}: {Matrix.RecieveEquation(i)}\n");
+
+                    Console.WriteLine("Result is:");
+                    Matrix.ShowResults();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error occured: " + e.Message);
+                }
                 LoopOfMainProgram();
             }
             void LoopOfMainProgram()
@@ -53,7 +66,7 @@ namespace LinearEquationSystems_Program
                         Environment.Exit(0);
                         break;
                     }
-                    else Console.WriteLine("Wrong answer\n the number of equations is not equal to the number of variables ");
+                    else Console.WriteLine("Wrong answer");
                 }
             }
         }

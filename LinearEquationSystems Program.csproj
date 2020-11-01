@@ -43,8 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DemandUser.cs" />
-    <Compile Include="EquationCalculatorClass.cs" />
+    <Compile Include="LinearEquationClass.cs" />
+    <Compile Include="MatrixClass.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClass.cs" />
